@@ -10,3 +10,19 @@
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
+
+/**
+ * Determine the currently active maps provider and load the appropriate component file.
+ *
+ * @return void
+ */
+function pno_map_component_loader() {
+
+	$provider = pno_get_option( 'map_provider', 'googlemaps' );
+
+	if ( $provider === 'googlemaps' ) {
+		( new PNO\MapsProvider\GoogleMaps() )->init();
+	}
+
+}
+add_action( 'plugins_loaded', 'pno_map_component_loader' );
