@@ -1,5 +1,5 @@
 {
-	"name": "pressmodo/posterno-maps",
+	"name": "posterno/posterno-maps",
 	"description": "Posterno component that provides maps related functionalities for all supported providers.",
 	"type": "wordpress-plugin",
 	"keywords": [
@@ -17,7 +17,10 @@
 	"autoload": {
 		"psr-4": {
 			"PressmodoPluginScaffold\\": "includes/classes/"
-		}
+		},
+		"files" : [
+			"component-loader.php"
+		]
 	},
 	"scripts": {
 		"lint": "phpcs .",
