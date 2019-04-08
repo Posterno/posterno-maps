@@ -12,16 +12,34 @@ namespace PNO\MapsProvider;
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Handles scripts registration for all google maps locations.
+ */
 class GoogleMaps {
 
+	/**
+	 * Get things started.
+	 *
+	 * @return void
+	 */
 	public function init() {
 		$this->hook();
 	}
 
+	/**
+	 * Hook into WordPress.
+	 *
+	 * @return void
+	 */
 	public function hook() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'assets' ], 11 );
 	}
 
+	/**
+	 * Register frontend scripts.
+	 *
+	 * @return void
+	 */
 	public function assets() {
 
 		$version = PNO_VERSION;
