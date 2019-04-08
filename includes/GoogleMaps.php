@@ -52,6 +52,7 @@ class GoogleMaps {
 
 		$js_vars = [
 			'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
+			'zoom'                => pno_get_option( 'single_listing_map_zoom', 12 ),
 		];
 
 		wp_localize_script( 'pno-single-listing-googlemap', 'pnoMapSettings', $js_vars );
