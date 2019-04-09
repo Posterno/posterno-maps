@@ -55,6 +55,8 @@ class GoogleMaps {
 
 		if ( $marker_type !== 'default' ) {
 
+			$marker_template = 'maps/marker-category';
+
 			ob_start();
 
 			posterno()->templates
@@ -63,7 +65,7 @@ class GoogleMaps {
 						'listing_id' => get_queried_object_id(),
 					]
 				)
-				->get_template_part( 'maps/marker' );
+				->get_template_part( $marker_template );
 
 			$marker_html = ob_get_clean();
 
@@ -72,7 +74,7 @@ class GoogleMaps {
 		$js_vars = [
 			'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
 			'zoom'                => pno_get_option( 'single_listing_map_zoom', 12 ),
-			'marker_type'         => pno_get_option( 'marker_type', 'default' ),
+			'marker_type'         => $marker_type,
 			'marker_content'      => esc_js( str_replace( "\n", '', $marker_html ) ),
 		];
 
