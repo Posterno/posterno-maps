@@ -50,17 +50,24 @@ class GoogleMaps {
 			wp_enqueue_script( 'pno-single-listing-googlemap' );
 		}
 
-		ob_start();
+		$marker_html = false;
+		$marker_type = pno_get_option( 'marker_type', 'default' );
 
-		posterno()->templates
-			->set_template_data(
-				[
-					'listing_id' => get_queried_object_id(),
-				]
-			)
-			->get_template_part( 'maps/marker' );
+		if ( $marker_type !== 'default' ) {
 
-		$marker_html = ob_get_clean();
+			ob_start();
+
+			posterno()->templates
+				->set_template_data(
+					[
+						'listing_id' => get_queried_object_id(),
+					]
+				)
+				->get_template_part( 'maps/marker' );
+
+			$marker_html = ob_get_clean();
+
+		}
 
 		$js_vars = [
 			'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),

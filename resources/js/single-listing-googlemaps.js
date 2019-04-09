@@ -59,8 +59,6 @@
 						lng: parseFloat(singleLng),
 					};
 
-					const latLng = new google.maps.LatLng(parseFloat(singleLat), parseFloat(singleLng));
-
 					const map = new googleMaps.Map(singleMap[0], {
 						center: singleLatLng,
 						zoom: parseFloat(pnoMapSettings.zoom),
@@ -69,19 +67,24 @@
 						mapTypeControl: false,
 					})
 
-					console.log(markerType)
+					if ( markerType === 'default' ) {
 
-					/*
-					var marker = new google.maps.Marker({
-						position: singleLatLng,
-						map: map,
-					});*/
+						var marker = new google.maps.Marker({
+							position: singleLatLng,
+							map: map,
+						});
 
-					let marker = createHTMLMapMarker({
-						latlng: latLng,
-						map: map,
-						html: pnoMapSettings.marker_content
-					});
+					} else {
+
+						const latLng = new google.maps.LatLng(parseFloat(singleLat), parseFloat(singleLng));
+
+						let marker = createHTMLMapMarker({
+							latlng: latLng,
+							map: map,
+							html: pnoMapSettings.marker_content
+						});
+
+					}
 
 				}
 
