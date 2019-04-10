@@ -61,6 +61,9 @@ class GoogleMaps {
 				case 'image':
 					$marker_template = 'maps/marker-image';
 					break;
+				case 'custom':
+					$marker_template = 'maps/marker-text';
+					break;
 			}
 
 			ob_start();
