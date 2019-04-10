@@ -57,7 +57,7 @@ class GoogleMaps {
 
 			$marker_template = 'maps/marker-category';
 
-			switch ( $marker_template ) {
+			switch ( $marker_type ) {
 				case 'image':
 					$marker_template = 'maps/marker-image';
 					break;
