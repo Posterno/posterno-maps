@@ -57,6 +57,12 @@ class GoogleMaps {
 
 			$marker_template = 'maps/marker-category';
 
+			switch ( $marker_template ) {
+				case 'image':
+					$marker_template = 'maps/marker-image';
+					break;
+			}
+
 			ob_start();
 
 			posterno()->templates
