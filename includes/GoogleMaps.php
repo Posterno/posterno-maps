@@ -100,12 +100,19 @@ class GoogleMaps extends Provider {
 
 			wp_enqueue_script( 'pno-taxonomy-googlemap' );
 
+			ob_start();
+
+			posterno()->templates->get_template_part( $this->get_marker_template_name() );
+
+			$marker_geolocated = ob_get_clean();
+
 			$js_vars = [
 				'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
 				'starting_lat'        => pno_get_option( 'map_starting_lat', '40.7484405' ),
 				'starting_lng'        => pno_get_option( 'map_starting_lng', '-73.9944191' ),
 				'zoom'                => pno_get_option( 'map_zoom', 12 ),
 				'marker_type'         => $this->get_marker_type(),
+				'marker_geolocated'   => esc_js( str_replace( "\n", '', $marker_geolocated ) ),
 			];
 
 			wp_localize_script( 'pno-taxonomy-googlemap', 'pnoMapSettings', $js_vars );

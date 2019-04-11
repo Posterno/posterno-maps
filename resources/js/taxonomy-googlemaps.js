@@ -9,6 +9,8 @@
 	// The library to load the gmap api.
 	const loadGoogleMapsApi = require('load-google-maps-api')
 
+	const GeolocationButton = require( './googlemaps-geolocation' )
+
 	// Parameters for the api request.
 	const apiConfig = {
 		key: pnoMapSettings.google_maps_api_key,
@@ -134,6 +136,11 @@
 					// Center the map so that all markers can be seen.
 					map.setCenter(bounds.getCenter())
 					map.fitBounds(bounds)
+
+					var geoButton = GeolocationButton( map )
+
+					// Enable bootstrap tooltips on the button.
+					$( geoButton ).tooltip()
 
 				}
 
