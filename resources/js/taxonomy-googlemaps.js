@@ -62,7 +62,6 @@
 					const map = new googleMaps.Map(singleMap[0], {
 						center: startingCenter,
 						zoom: pnoMapSettings.zoom,
-						fullscreenControl: false,
 						streetViewControl: false,
 						mapTypeControl: false,
 					})
