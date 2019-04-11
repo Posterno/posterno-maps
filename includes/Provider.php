@@ -12,8 +12,16 @@ namespace PNO\MapsProvider;
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Main Provider class that inherits common methods for all Providers.
+ */
 abstract class Provider {
 
+	/**
+	 * Get current listings in the query for markers display.
+	 *
+	 * @return array
+	 */
 	protected function get_current_listings() {
 
 		$listings = [];
@@ -59,10 +67,20 @@ abstract class Provider {
 
 	}
 
+	/**
+	 * Get the enabled type of marker.
+	 *
+	 * @return string
+	 */
 	protected function get_marker_type() {
 		return pno_get_option( 'marker_type', 'default' );
 	}
 
+	/**
+	 * Get the current taxonomy.
+	 *
+	 * @return string|boolean
+	 */
 	protected function get_current_taxonomy() {
 
 		$current_taxonomy = get_queried_object();
@@ -72,6 +90,11 @@ abstract class Provider {
 
 	}
 
+	/**
+	 * Get the name of the marker template to load.
+	 *
+	 * @return string|boolean
+	 */
 	protected function get_marker_template_name() {
 
 		$marker_template_name = false;
