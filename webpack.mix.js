@@ -85,6 +85,7 @@ mix.version();
  * @link https://laravel.com/docs/5.6/mix#working-with-scripts
  */
 mix.js( `${devPath}/js/single-listing-googlemaps.js`, 'js' );
+mix.js( `${devPath}/js/taxonomy-googlemaps.js`, 'js' );
 
 /*
  * Compile CSS. Mix supports Sass, Less, Stylus, and plain CSS, and has functions
