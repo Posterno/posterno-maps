@@ -54,10 +54,24 @@ abstract class Provider {
 				$coordinates = pno_get_listing_coordinates( get_the_id() );
 
 				if ( isset( $coordinates['lat'], $coordinates['lng'] ) ) {
+
+					ob_start();
+
+					posterno()->templates
+						->set_template_data(
+							[
+								'listing_id' => get_the_id(),
+							]
+						)
+						->get_template_part( 'maps/marker-infowindow' );
+
+					$infowindow = ob_get_clean();
+
 					$listings[] = [
 						'title'          => esc_html( get_the_title() ),
 						'coordinates'    => $coordinates,
 						'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
+						'infowindow' => esc_js( str_replace( "\n", '', $infowindow ) ),
 					];
 				}
 			}

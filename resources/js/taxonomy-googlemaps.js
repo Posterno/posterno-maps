@@ -125,7 +125,7 @@
 						bounds.extend(marker.getPosition())
 
 						marker.addListener( "click", () => {
-							infoWindow.setContent( 'Testing' );
+							infoWindow.setContent( $.parseHTML(Listing.infowindow)[0]['wholeText'] );
 							infoWindow.open(map, marker);
 						});
 
