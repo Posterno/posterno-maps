@@ -71,7 +71,7 @@ abstract class Provider {
 						'title'          => esc_html( get_the_title() ),
 						'coordinates'    => $coordinates,
 						'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
-						'infowindow' => esc_js( str_replace( "\n", '', $infowindow ) ),
+						'infowindow'     => esc_js( str_replace( "\n", '', $infowindow ) ),
 					];
 				}
 			}
