@@ -40,4 +40,13 @@ abstract class Provider {
 		return pno_get_option( 'marker_type', 'default' );
 	}
 
+	protected function get_current_taxonomy() {
+
+		$current_taxonomy = get_queried_object();
+		$current_taxonomy = isset( $current_taxonomy->taxonomy ) && ! empty( $current_taxonomy->taxonomy ) ? $current_taxonomy->taxonomy : false;
+
+		return $current_taxonomy;
+
+	}
+
 }

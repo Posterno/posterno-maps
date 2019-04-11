@@ -105,8 +105,7 @@ class GoogleMaps extends Provider {
 
 		wp_register_script( 'pno-taxonomy-googlemap', PNO_PLUGIN_URL . 'includes/components/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
 
-		$current_taxonomy = get_queried_object();
-		$current_taxonomy = isset( $current_taxonomy->taxonomy ) && ! empty( $current_taxonomy->taxonomy ) ? $current_taxonomy->taxonomy : false;
+		$current_taxonomy = $this->get_current_taxonomy();
 
 		if ( $current_taxonomy && pno_is_map_enabled_for_taxonomy( $current_taxonomy ) && is_tax( $current_taxonomy ) ) {
 
@@ -131,6 +130,12 @@ class GoogleMaps extends Provider {
 	 * @return void
 	 */
 	public function taxonomy_map_markup() {
+
+		$current_taxonomy = $this->get_current_taxonomy();
+
+		if ( ! $current_taxonomy || ! pno_is_map_enabled_for_taxonomy( $current_taxonomy ) || ! is_tax( $current_taxonomy ) ) {
+			return;
+		}
 
 		?>
 		<script type="text/javascript">
