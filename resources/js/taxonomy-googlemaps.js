@@ -68,6 +68,34 @@
 
 					var bounds = new google.maps.LatLngBounds();
 
+					// Determine the position of the infowindow.
+					var windowPosition = false
+
+					if ( markerType === 'category' ) {
+						windowPosition = {
+							x: 0,
+							y: -48
+						}
+					} else if ( markerType === 'custom' ) {
+						windowPosition = {
+							x: 5,
+							y: -35
+						}
+					} else if ( markerType === 'image' ) {
+						windowPosition = {
+							x: 1,
+							y: -45
+						}
+					}
+
+					if ( windowPosition.x && windowPosition.y ) {
+						var infoWindow = new google.maps.InfoWindow({
+							pixelOffset: new google.maps.Size(windowPosition.x,windowPosition.y)
+						})
+					} else {
+						var infoWindow = new google.maps.InfoWindow()
+					}
+
 					// Get found listings.
 					const AvailableMarkers = PosternoTaxonomyMap.getMarkers()
 
@@ -91,11 +119,16 @@
 							var marker = createHTMLMapMarker({
 								latlng: latLng,
 								map: map,
-								html: jQuery.parseHTML(Listing.marker_content)[0]['wholeText']
+								html: $.parseHTML(Listing.marker_content)[0]['wholeText']
 							});
 						}
 
 						bounds.extend(marker.getPosition())
+
+						marker.addListener( "click", () => {
+							infoWindow.setContent( 'Testing' );
+							infoWindow.open(map, marker);
+						});
 
 					});
 
