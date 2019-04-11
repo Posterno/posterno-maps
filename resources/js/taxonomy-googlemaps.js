@@ -69,7 +69,10 @@
 					var bounds = new google.maps.LatLngBounds();
 
 					// Determine the position of the infowindow.
-					var windowPosition = false
+					var windowPosition = {
+						x: 0,
+						y: 0
+					}
 
 					if ( markerType === 'category' ) {
 						windowPosition = {
@@ -88,13 +91,9 @@
 						}
 					}
 
-					if ( windowPosition.x && windowPosition.y ) {
-						var infoWindow = new google.maps.InfoWindow({
-							pixelOffset: new google.maps.Size(windowPosition.x,windowPosition.y)
-						})
-					} else {
-						var infoWindow = new google.maps.InfoWindow()
-					}
+					var infoWindow = new google.maps.InfoWindow({
+						pixelOffset: new google.maps.Size(windowPosition.x,windowPosition.y)
+					})
 
 					// Get found listings.
 					const AvailableMarkers = PosternoTaxonomyMap.getMarkers()
