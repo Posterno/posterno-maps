@@ -115,6 +115,7 @@ class GoogleMaps extends Provider {
 				'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
 				'starting_lat'        => pno_get_option( 'map_starting_lat', '40.7484405' ),
 				'starting_lng'        => pno_get_option( 'map_starting_lng', '-73.9944191' ),
+				'zoom'                => pno_get_option( 'map_zoom', 12 ),
 				'marker_type'         => $this->get_marker_type(),
 			];
 
@@ -125,7 +126,7 @@ class GoogleMaps extends Provider {
 	}
 
 	/**
-	 * Undocumented function
+	 * Load taxonomy map markup when in a listing taxonomy.
 	 *
 	 * @return void
 	 */
