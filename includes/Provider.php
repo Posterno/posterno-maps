@@ -43,12 +43,15 @@ abstract class Provider {
 
 				}
 
-				$listings[] = [
-					'title'          => esc_html( get_the_title() ),
-					'coordinates'    => pno_get_listing_coordinates( get_the_id() ),
-					'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
-				];
+				$coordinates = pno_get_listing_coordinates( get_the_id() );
 
+				if ( isset( $coordinates['lat'], $coordinates['lng'] ) ) {
+					$listings[] = [
+						'title'          => esc_html( get_the_title() ),
+						'coordinates'    => $coordinates,
+						'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
+					];
+				}
 			}
 		}
 
