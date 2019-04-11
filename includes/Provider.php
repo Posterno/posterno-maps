@@ -24,9 +24,29 @@ abstract class Provider {
 
 				the_post();
 
+				$marker_html = false;
+				$marker_type = $this->get_marker_type();
+
+				if ( $marker_type !== 'default' ) {
+
+					ob_start();
+
+					posterno()->templates
+						->set_template_data(
+							[
+								'listing_id' => get_the_id(),
+							]
+						)
+						->get_template_part( $this->get_marker_template_name() );
+
+					$marker_html = ob_get_clean();
+
+				}
+
 				$listings[] = [
-					'title'       => esc_html( get_the_title() ),
-					'coordinates' => pno_get_listing_coordinates( get_the_id() ),
+					'title'          => esc_html( get_the_title() ),
+					'coordinates'    => pno_get_listing_coordinates( get_the_id() ),
+					'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
 				];
 
 			}
@@ -46,6 +66,30 @@ abstract class Provider {
 		$current_taxonomy = isset( $current_taxonomy->taxonomy ) && ! empty( $current_taxonomy->taxonomy ) ? $current_taxonomy->taxonomy : false;
 
 		return $current_taxonomy;
+
+	}
+
+	protected function get_marker_template_name() {
+
+		$marker_template_name = false;
+
+		$marker_type = $this->get_marker_type();
+
+		if ( $marker_type !== 'default' ) {
+
+			$marker_template_name = 'maps/marker-category';
+
+			switch ( $marker_type ) {
+				case 'image':
+					$marker_template_name = 'maps/marker-image';
+					break;
+				case 'custom':
+					$marker_template_name = 'maps/marker-text';
+					break;
+			}
+		}
+
+		return $marker_template_name;
 
 	}
 

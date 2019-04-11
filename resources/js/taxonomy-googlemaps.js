@@ -61,7 +61,7 @@
 
 					const map = new googleMaps.Map(singleMap[0], {
 						center: startingCenter,
-						zoom: pnoMapSettings.zoom,
+						zoom: parseFloat( pnoMapSettings.zoom ),
 						streetViewControl: false,
 						mapTypeControl: false,
 					})
@@ -91,11 +91,11 @@
 							var marker = createHTMLMapMarker({
 								latlng: latLng,
 								map: map,
-								html: pnoMapSettings.marker_content
+								html: jQuery.parseHTML(Listing.marker_content)[0]['wholeText']
 							});
 						}
 
-						bounds.extend(marker.position)
+						bounds.extend(marker.getPosition())
 
 					});
 

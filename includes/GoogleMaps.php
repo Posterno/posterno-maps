@@ -53,20 +53,9 @@ class GoogleMaps extends Provider {
 			wp_enqueue_script( 'pno-single-listing-googlemap' );
 
 			$marker_html = false;
-			$marker_type = pno_get_option( 'marker_type', 'default' );
+			$marker_type = $this->get_marker_type();
 
 			if ( $marker_type !== 'default' ) {
-
-				$marker_template = 'maps/marker-category';
-
-				switch ( $marker_type ) {
-					case 'image':
-						$marker_template = 'maps/marker-image';
-						break;
-					case 'custom':
-						$marker_template = 'maps/marker-text';
-						break;
-				}
 
 				ob_start();
 
@@ -76,7 +65,7 @@ class GoogleMaps extends Provider {
 							'listing_id' => get_queried_object_id(),
 						]
 					)
-					->get_template_part( $marker_template );
+					->get_template_part( $this->get_marker_template_name() );
 
 				$marker_html = ob_get_clean();
 
