@@ -48,46 +48,46 @@ class GoogleMaps {
 
 		if ( is_singular( 'listings' ) ) {
 			wp_enqueue_script( 'pno-single-listing-googlemap' );
-		}
 
-		$marker_html = false;
-		$marker_type = pno_get_option( 'marker_type', 'default' );
+			$marker_html = false;
+			$marker_type = pno_get_option( 'marker_type', 'default' );
 
-		if ( $marker_type !== 'default' ) {
+			if ( $marker_type !== 'default' ) {
 
-			$marker_template = 'maps/marker-category';
+				$marker_template = 'maps/marker-category';
 
-			switch ( $marker_type ) {
-				case 'image':
-					$marker_template = 'maps/marker-image';
-					break;
-				case 'custom':
-					$marker_template = 'maps/marker-text';
-					break;
+				switch ( $marker_type ) {
+					case 'image':
+						$marker_template = 'maps/marker-image';
+						break;
+					case 'custom':
+						$marker_template = 'maps/marker-text';
+						break;
+				}
+
+				ob_start();
+
+				posterno()->templates
+					->set_template_data(
+						[
+							'listing_id' => get_queried_object_id(),
+						]
+					)
+					->get_template_part( $marker_template );
+
+				$marker_html = ob_get_clean();
+
 			}
 
-			ob_start();
+			$js_vars = [
+				'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
+				'zoom'                => pno_get_option( 'single_listing_map_zoom', 12 ),
+				'marker_type'         => $marker_type,
+				'marker_content'      => esc_js( str_replace( "\n", '', $marker_html ) ),
+			];
 
-			posterno()->templates
-				->set_template_data(
-					[
-						'listing_id' => get_queried_object_id(),
-					]
-				)
-				->get_template_part( $marker_template );
-
-			$marker_html = ob_get_clean();
-
+			wp_localize_script( 'pno-single-listing-googlemap', 'pnoMapSettings', $js_vars );
 		}
-
-		$js_vars = [
-			'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
-			'zoom'                => pno_get_option( 'single_listing_map_zoom', 12 ),
-			'marker_type'         => $marker_type,
-			'marker_content'      => esc_js( str_replace( "\n", '', $marker_html ) ),
-		];
-
-		wp_localize_script( 'pno-single-listing-googlemap', 'pnoMapSettings', $js_vars );
 
 	}
 
