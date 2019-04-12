@@ -102,7 +102,7 @@ class GoogleMaps extends Provider {
 
 			ob_start();
 
-			posterno()->templates->get_template_part( $this->get_marker_template_name() );
+			posterno()->templates->get_template_part( 'maps/marker-geolocated' );
 
 			$marker_geolocated = ob_get_clean();
 

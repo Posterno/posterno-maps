@@ -1,4 +1,6 @@
-module.exports = function (map) {
+module.exports = function (map, bounds) {
+
+	const createHTMLMapMarker = require('@posterno/google-maps-html-marker');
 
 	// Prepare markup of the button.
 	var buttonUI = document.createElement('div')
@@ -19,17 +21,18 @@ module.exports = function (map) {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function (position) {
 
-				var pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude
-				};
+				const latLng = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
 
-				/*
 				var marker = createHTMLMapMarker({
 					latlng: latLng,
 					map: map,
-					html: $.parseHTML(Listing.marker_content)[0]['wholeText']
-				});*/
+					html: jQuery.parseHTML( pnoMapSettings.marker_geolocated )[0].outerHTML
+				});
+
+				// Extend map bound and adjust the center.
+				bounds.extend(marker.getPosition())
+				map.setCenter(bounds.getCenter())
+				map.fitBounds(bounds)
 
 			}, function () {
 
