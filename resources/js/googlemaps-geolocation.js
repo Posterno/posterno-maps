@@ -1,4 +1,4 @@
-module.exports = function (map, bounds) {
+module.exports = function (map, bounds, infoWindow) {
 
 	const createHTMLMapMarker = require('@posterno/google-maps-html-marker');
 
@@ -27,6 +27,13 @@ module.exports = function (map, bounds) {
 					latlng: latLng,
 					map: map,
 					html: jQuery.parseHTML( pnoMapSettings.marker_geolocated )[0].outerHTML
+				});
+
+				infoWindow.setContent( pno_settings.labels.youHere );
+				infoWindow.open(map, marker);
+
+				marker.addListener( "click", () => {
+					infoWindow.open(map, marker);
 				});
 
 				// Extend map bound and adjust the center.

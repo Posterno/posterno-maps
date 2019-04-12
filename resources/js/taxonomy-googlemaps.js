@@ -137,7 +137,7 @@
 					map.setCenter(bounds.getCenter())
 					map.fitBounds(bounds)
 
-					var geoButton = GeolocationButton( map, bounds )
+					var geoButton = GeolocationButton( map, bounds, infoWindow )
 
 					// Enable bootstrap tooltips on the button.
 					$( geoButton ).tooltip()
