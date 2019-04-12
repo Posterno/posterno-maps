@@ -83,6 +83,12 @@ abstract class Provider {
 
 	}
 
+	/**
+	 * Retrieve markers list from a specific query.
+	 *
+	 * @param WP_Query $query the query from which we're going to get the markers.
+	 * @return array
+	 */
 	protected function get_listings_from_query( $query ) {
 
 		$listings = [];
