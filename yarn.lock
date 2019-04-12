@@ -614,6 +614,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@google/markerclustererplus@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@google/markerclustererplus/-/markerclustererplus-2.1.11.tgz#cc8598d7f17ada8eab13a2f25094d020dbd0bf36"
+  integrity sha512-B1w3TKgu1MRTJq7VXUv3JUxAd69qHROIg2tODPjQA7tjKvu4K7pCdPduE6Xu9Mfb5syhOH77BWGHqFYy7MgjCw==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

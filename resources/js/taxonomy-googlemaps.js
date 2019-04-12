@@ -9,7 +9,11 @@
 	// The library to load the gmap api.
 	const loadGoogleMapsApi = require('load-google-maps-api')
 
+	// Geolocation button.
 	const GeolocationButton = require( './googlemaps-geolocation' )
+
+	// The clustering library.
+	const GoogleClusters = require( '@google/markerclustererplus' )
 
 	// Parameters for the api request.
 	const apiConfig = {
@@ -100,6 +104,8 @@
 					// Get found listings.
 					const AvailableMarkers = PosternoTaxonomyMap.getMarkers()
 
+					var MarkersList = []
+
 					// Loop listings and create a marker.
 					Object.keys( AvailableMarkers ).forEach(function (key) {
 
@@ -131,7 +137,12 @@
 							infoWindow.open(map, marker);
 						});
 
+						MarkersList.push(marker);
+
 					});
+
+					// Enable clusters.
+					var markerCluster = new GoogleClusters(map, MarkersList)
 
 					// Center the map so that all markers can be seen.
 					map.setCenter(bounds.getCenter())
