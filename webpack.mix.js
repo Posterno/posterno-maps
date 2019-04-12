@@ -128,6 +128,7 @@ mix.webpackConfig( {
 			// 'hybrid-customize' : path.resolve( __dirname, 'vendor/justintadlock/hybrid-customize/resources/' )
 		}
 	},
+	/*
 	plugins     : [
 		// @link https://github.com/webpack-contrib/copy-webpack-plugin
 		new CopyWebpackPlugin( [
@@ -157,7 +158,7 @@ mix.webpackConfig( {
 				imageminMozjpeg( { quality : 75 } )
 			]
 		} )
-	]
+	]*/
 } );
 
 if ( process.env.sync ) {
