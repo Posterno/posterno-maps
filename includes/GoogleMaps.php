@@ -33,8 +33,11 @@ class GoogleMaps extends Provider {
 	 */
 	public function hook() {
 		add_action( 'pno_before_taxonomy_loop', [ $this, 'taxonomy_map_markup' ] );
+		add_action( 'pno_before_listings_page', [ $this, 'listings_page_map_markup' ] );
+
 		add_action( 'wp_enqueue_scripts', [ $this, 'single_listing_map' ], 11 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'taxonomy_map' ], 11 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'listings_page_map' ], 11 );
 	}
 
 	/**
@@ -122,6 +125,37 @@ class GoogleMaps extends Provider {
 	}
 
 	/**
+	 * Register scripts for the listings page shortcode.
+	 * These are only actually loaded when the shortcode is displayed.
+	 *
+	 * @return void
+	 */
+	public function listings_page_map() {
+
+		$version = PNO_VERSION;
+
+		wp_register_script( 'pno-listings-page-googlemap', PNO_PLUGIN_URL . 'includes/components/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
+
+		ob_start();
+
+		posterno()->templates->get_template_part( 'maps/marker-geolocated' );
+
+		$marker_geolocated = ob_get_clean();
+
+		$js_vars = [
+			'google_maps_api_key' => pno_get_option( 'google_maps_api_key' ),
+			'starting_lat'        => pno_get_option( 'map_starting_lat', '40.7484405' ),
+			'starting_lng'        => pno_get_option( 'map_starting_lng', '-73.9944191' ),
+			'zoom'                => pno_get_option( 'map_zoom', 12 ),
+			'marker_type'         => $this->get_marker_type(),
+			'marker_geolocated'   => esc_js( str_replace( "\n", '', $marker_geolocated ) ),
+		];
+
+		wp_localize_script( 'pno-listings-page-googlemap', 'pnoMapSettings', $js_vars );
+
+	}
+
+	/**
 	 * Load taxonomy map markup when in a listing taxonomy.
 	 *
 	 * @return void
@@ -141,6 +175,24 @@ class GoogleMaps extends Provider {
 		<?php
 
 		echo '<div class="pno-taxonomy-map mb-5"></div>';
+	}
+
+	/**
+	 * Load the markup for the listings page shortcode map.
+	 *
+	 * @param WP_Query $query the query passed through the action.
+	 * @return void
+	 */
+	public function listings_page_map_markup( $query ) {
+
+		?>
+		<script type="text/javascript">
+			var pnoTaxonomyMarkers = <?php echo wp_json_encode( $this->get_listings_from_query( $query ) ); ?>;
+		</script>
+		<?php
+
+		echo '<div class="pno-taxonomy-map mb-5"></div>';
+
 	}
 
 }

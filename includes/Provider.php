@@ -77,6 +77,69 @@ abstract class Provider {
 			}
 		}
 
+		wp_reset_postdata();
+
+		return $listings;
+
+	}
+
+	protected function get_listings_from_query( $query ) {
+
+		$listings = [];
+
+		if ( $query->have_posts() ) {
+
+			while ( $query->have_posts() ) {
+
+				$query->the_post();
+
+				$marker_html = false;
+				$marker_type = $this->get_marker_type();
+
+				if ( $marker_type !== 'default' ) {
+
+					ob_start();
+
+					posterno()->templates
+						->set_template_data(
+							[
+								'listing_id' => get_the_id(),
+							]
+						)
+						->get_template_part( $this->get_marker_template_name() );
+
+					$marker_html = ob_get_clean();
+
+				}
+
+				$coordinates = pno_get_listing_coordinates( get_the_id() );
+
+				if ( isset( $coordinates['lat'], $coordinates['lng'] ) ) {
+
+					ob_start();
+
+					posterno()->templates
+						->set_template_data(
+							[
+								'listing_id' => get_the_id(),
+							]
+						)
+						->get_template_part( 'maps/marker-infowindow' );
+
+					$infowindow = ob_get_clean();
+
+					$listings[] = [
+						'title'          => esc_html( get_the_title() ),
+						'coordinates'    => $coordinates,
+						'marker_content' => esc_js( str_replace( "\n", '', $marker_html ) ),
+						'infowindow'     => esc_js( str_replace( "\n", '', $infowindow ) ),
+					];
+				}
+			}
+		}
+
+		wp_reset_postdata();
+
 		return $listings;
 
 	}
