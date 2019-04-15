@@ -18,6 +18,12 @@ defined( 'ABSPATH' ) || exit;
  */
 function pno_map_component_loader() {
 
+	$maps_disabled = current_theme_supports( 'posterno_disable_maps' );
+
+	if ( $maps_disabled ) {
+		return;
+	}
+
 	$provider = pno_get_option( 'map_provider', 'googlemaps' );
 
 	if ( $provider === 'googlemaps' ) {
@@ -25,4 +31,4 @@ function pno_map_component_loader() {
 	}
 
 }
-add_action( 'plugins_loaded', 'pno_map_component_loader' );
+add_action( 'after_setup_theme', 'pno_map_component_loader' );
