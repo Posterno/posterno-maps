@@ -145,8 +145,10 @@
 					var markerCluster = new GoogleClusters(map, MarkersList)
 
 					// Center the map so that all markers can be seen.
-					map.setCenter(bounds.getCenter())
-					map.fitBounds(bounds)
+					if ( pno_settings.boundsDisabled !== '1' ) {
+						map.setCenter(bounds.getCenter())
+						map.fitBounds(bounds)
+					}
 
 					var geoButton = GeolocationButton( map, bounds, infoWindow )
 
