@@ -33,7 +33,7 @@ class GoogleMaps extends Provider {
 	 */
 	public function hook() {
 		add_action( 'pno_before_taxonomy_loop', [ $this, 'taxonomy_map_markup' ] );
-		add_action( 'pno_before_listings_page', [ $this, 'listings_page_map_markup' ] );
+		add_action( 'pno_before_listings_page', [ $this, 'listings_page_map_markup' ], 10, 2 );
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'single_listing_map' ], 11 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'taxonomy_map' ], 11 );
@@ -181,9 +181,14 @@ class GoogleMaps extends Provider {
 	 * Load the markup for the listings page shortcode map.
 	 *
 	 * @param WP_Query $query the query passed through the action.
+	 * @param object   $atts list of attributes sent through the shortcode.
 	 * @return void
 	 */
-	public function listings_page_map_markup( $query ) {
+	public function listings_page_map_markup( $query, $atts ) {
+
+		if ( ! isset( $atts->map ) || isset( $atts->map ) && $atts->map !== 'yes' ) {
+			return;
+		}
 
 		?>
 		<script type="text/javascript">
