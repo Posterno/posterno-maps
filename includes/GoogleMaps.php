@@ -49,7 +49,7 @@ class GoogleMaps extends Provider {
 
 		$version = PNO_VERSION;
 
-		wp_register_script( 'pno-single-listing-googlemap', PNO_PLUGIN_URL . 'includes/components/posterno-maps/dist/js/single-listing-googlemaps.js', [ 'jquery' ], $version, true );
+		wp_register_script( 'pno-single-listing-googlemap', PNO_PLUGIN_URL . 'vendor/posterno/posterno-maps/dist/js/single-listing-googlemaps.js', [ 'jquery' ], $version, true );
 
 		if ( is_singular( 'listings' ) ) {
 
@@ -95,7 +95,7 @@ class GoogleMaps extends Provider {
 
 		$version = PNO_VERSION;
 
-		wp_register_script( 'pno-taxonomy-googlemap', PNO_PLUGIN_URL . 'includes/components/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
+		wp_register_script( 'pno-taxonomy-googlemap', PNO_PLUGIN_URL . 'vendor/posterno/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
 
 		$current_taxonomy = $this->get_current_taxonomy();
 
@@ -134,7 +134,7 @@ class GoogleMaps extends Provider {
 
 		$version = PNO_VERSION;
 
-		wp_register_script( 'pno-listings-page-googlemap', PNO_PLUGIN_URL . 'includes/components/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
+		wp_register_script( 'pno-listings-page-googlemap', PNO_PLUGIN_URL . 'vendor/posterno/posterno-maps/dist/js/taxonomy-googlemaps.js', [ 'jquery' ], $version, true );
 
 		ob_start();
 
