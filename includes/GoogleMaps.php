@@ -79,6 +79,8 @@ class GoogleMaps extends Provider {
 				'zoom'                => pno_get_option( 'single_listing_map_zoom', 12 ),
 				'marker_type'         => $marker_type,
 				'marker_content'      => esc_js( str_replace( "\n", '', $marker_html ) ),
+				'requires_consent'    => pno_get_option( 'map_gdpr', false ),
+				'consent_enabled'     => pno_map_was_given_consent(),
 			];
 
 			wp_localize_script( 'pno-single-listing-googlemap', 'pnoMapSettings', $js_vars );

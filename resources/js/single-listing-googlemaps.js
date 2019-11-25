@@ -4,6 +4,9 @@
 
 	const createHTMLMapMarker = require('@posterno/google-maps-html-marker');
 
+	const MapRequiresConsent = pnoMapSettings.requires_consent === '1' ? true : false;
+	const MapConsentGiven = pnoMapSettings.consent_enabled === '1' ? true : false;
+
 	window.PosternoSingleListingMap = {};
 
 	// The library to load the gmap api.
@@ -21,6 +24,13 @@
 	 * Run the script.
 	 */
 	PosternoSingleListingMap.init = function () {
+
+		console.log( MapRequiresConsent )
+
+		if ( MapRequiresConsent && ! MapConsentGiven ) {
+			return
+		}
+
 		PosternoSingleListingMap.cacheSelectors();
 		PosternoSingleListingMap.loadMap();
 	}

@@ -1,1 +1,339 @@
-!function(e){var t={};function n(i){if(t[i])return t[i].exports;var o=t[i]={i:i,l:!1,exports:{}};return e[i].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,i){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:i})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var i=Object.create(null);if(n.r(i),Object.defineProperty(i,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(i,o,function(t){return e[t]}.bind(null,o));return i},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=0)}({0:function(e,t,n){e.exports=n("Szgm")},Szgm:function(e,t,n){!function(e,t,i,o){"use strict";var r=n("qHbC");e.PosternoSingleListingMap={};var a=n("pwkN"),l={key:pnoMapSettings.google_maps_api_key},s=pnoMapSettings.marker_type;PosternoSingleListingMap.init=function(){PosternoSingleListingMap.cacheSelectors(),PosternoSingleListingMap.loadMap()},PosternoSingleListingMap.cacheSelectors=function(){PosternoSingleListingMap.map_elements=i(".pno-single-listing-map")},PosternoSingleListingMap.loadMap=function(){PosternoSingleListingMap.map_elements&&a(l).then((function(e){i(PosternoSingleListingMap.map_elements).each((function(){var t=i(this);if(t.length){var n=t.data("lat"),o=t.data("lng"),a={lat:parseFloat(n),lng:parseFloat(o)},l=new e.Map(t[0],{center:a,zoom:parseFloat(pnoMapSettings.zoom),fullscreenControl:!1,streetViewControl:!1,mapTypeControl:!1});if("default"===s)new google.maps.Marker({position:a,map:l});else{var p=new google.maps.LatLng(parseFloat(n),parseFloat(o));r({latlng:p,map:l,html:pnoMapSettings.marker_content})}}}))})).catch((function(e){console.error(e)}))},PosternoSingleListingMap.init()}(window,document,jQuery)},pwkN:function(e,t){var n="__googleMapsApiOnLoadCallback",i=["channel","client","key","language","region","v"],o=null;e.exports=function(e){return e=e||{},o||(o=new Promise((function(t,o){var r=setTimeout((function(){window[n]=function(){},o(new Error("Could not load the Google Maps API"))}),e.timeout||1e4);window[n]=function(){null!==r&&clearTimeout(r),t(window.google.maps),delete window[n]};var a=document.createElement("script"),l=["callback="+n];i.forEach((function(t){e[t]&&l.push(t+"="+e[t])})),e.libraries&&e.libraries.length&&l.push("libraries="+e.libraries.join(",")),a.src="https://maps.googleapis.com/maps/api/js?"+l.join("&"),document.body.appendChild(a)}))),o}},qHbC:function(e,t){e.exports=({OverlayView:e=google.maps.OverlayView,...t})=>{return new class extends e{constructor(){super(),this.latlng=t.latlng,this.html=t.html,this.setMap(t.map)}createDiv(){this.div=document.createElement("div"),this.div.style.position="absolute",this.html&&(this.div.innerHTML=this.html),google.maps.event.addDomListener(this.div,"click",e=>{google.maps.event.trigger(this,"click")})}appendDivToOverlay(){this.getPanes().overlayImage.appendChild(this.div)}positionDiv(){const e=this.getProjection().fromLatLngToDivPixel(this.latlng);e&&(this.div.style.left=`${e.x-25}px`,this.div.style.top=`${e.y-25}px`)}draw(){this.div||(this.createDiv(),this.appendDivToOverlay()),this.positionDiv()}remove(){this.div&&(this.div.parentNode.removeChild(this.div),this.div=null)}getPosition(){return this.latlng}getDraggable(){return!1}}}}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/@posterno/google-maps-html-marker/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@posterno/google-maps-html-marker/index.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* global google */
+
+module.exports = ({
+	OverlayView = google.maps.OverlayView,
+	...args
+}) => {
+	class HTMLMapMarker extends OverlayView {
+		constructor() {
+			super();
+			this.latlng = args.latlng;
+			this.html = args.html;
+			this.setMap(args.map);
+		}
+
+		createDiv() {
+			this.div = document.createElement("div");
+			this.div.style.position = "absolute";
+			if (this.html) {
+				this.div.innerHTML = this.html;
+			}
+			google.maps.event.addDomListener(this.div, "click", event => {
+				google.maps.event.trigger(this, "click");
+			});
+		}
+
+		appendDivToOverlay() {
+			const panes = this.getPanes();
+			panes.overlayImage.appendChild(this.div);
+		}
+
+		positionDiv() {
+			const point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+			let offset = 25;
+			if (point) {
+				this.div.style.left = `${point.x - offset}px`;
+				this.div.style.top = `${point.y - offset}px`;
+			}
+		}
+
+		draw() {
+			if (!this.div) {
+				this.createDiv();
+				this.appendDivToOverlay();
+			}
+			this.positionDiv();
+		}
+
+		remove() {
+			if (this.div) {
+				this.div.parentNode.removeChild(this.div);
+				this.div = null;
+			}
+		}
+
+		getPosition() {
+			return this.latlng;
+		}
+
+		getDraggable() {
+			return false;
+		}
+	}
+
+	return new HTMLMapMarker();
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/load-google-maps-api/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/load-google-maps-api/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var CALLBACK_NAME = '__googleMapsApiOnLoadCallback'
+
+var OPTIONS_KEYS = ['channel', 'client', 'key', 'language', 'region', 'v']
+
+var promise = null
+
+module.exports = function (options) {
+  options = options || {}
+
+  if (!promise) {
+    promise = new Promise(function (resolve, reject) {
+      // Reject the promise after a timeout
+      var timeoutId = setTimeout(function () {
+        window[CALLBACK_NAME] = function () {} // Set the on load callback to a no-op
+        reject(new Error('Could not load the Google Maps API'))
+      }, options.timeout || 10000)
+
+      // Hook up the on load callback
+      window[CALLBACK_NAME] = function () {
+        if (timeoutId !== null) {
+          clearTimeout(timeoutId)
+        }
+        resolve(window.google.maps)
+        delete window[CALLBACK_NAME]
+      }
+
+      // Prepare the `script` tag to be inserted into the page
+      var scriptElement = document.createElement('script')
+      var params = ['callback=' + CALLBACK_NAME]
+      OPTIONS_KEYS.forEach(function (key) {
+        if (options[key]) {
+          params.push(key + '=' + options[key])
+        }
+      })
+      if (options.libraries && options.libraries.length) {
+        params.push('libraries=' + options.libraries.join(','))
+      }
+      scriptElement.src =
+        'https://maps.googleapis.com/maps/api/js?' + params.join('&')
+
+      // Insert the `script` tag
+      document.body.appendChild(scriptElement)
+    })
+  }
+
+  return promise
+}
+
+
+/***/ }),
+
+/***/ "./resources/js/single-listing-googlemaps.js":
+/*!***************************************************!*\
+  !*** ./resources/js/single-listing-googlemaps.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (window, document, $, undefined) {
+  'use strict';
+
+  var createHTMLMapMarker = __webpack_require__(/*! @posterno/google-maps-html-marker */ "./node_modules/@posterno/google-maps-html-marker/index.js");
+
+  var MapRequiresConsent = pnoMapSettings.requires_consent === '1' ? true : false;
+  var MapConsentGiven = pnoMapSettings.consent_enabled === '1' ? true : false;
+  window.PosternoSingleListingMap = {}; // The library to load the gmap api.
+
+  var loadGoogleMapsApi = __webpack_require__(/*! load-google-maps-api */ "./node_modules/load-google-maps-api/index.js"); // Parameters for the api request.
+
+
+  var apiConfig = {
+    key: pnoMapSettings.google_maps_api_key
+  }; // Determine the type of marker selected.
+
+  var markerType = pnoMapSettings.marker_type;
+  /**
+   * Run the script.
+   */
+
+  PosternoSingleListingMap.init = function () {
+    console.log(MapRequiresConsent);
+
+    if (MapRequiresConsent && !MapConsentGiven) {
+      return;
+    }
+
+    PosternoSingleListingMap.cacheSelectors();
+    PosternoSingleListingMap.loadMap();
+  };
+  /**
+   * Cache required selectors.
+   */
+
+
+  PosternoSingleListingMap.cacheSelectors = function () {
+    PosternoSingleListingMap.map_elements = $('.pno-single-listing-map');
+  };
+  /**
+   * Load Google maps and then create maps.
+   */
+
+
+  PosternoSingleListingMap.loadMap = function () {
+    // Make sure there's an element before loading the api.
+    if (!PosternoSingleListingMap.map_elements) {
+      return;
+    }
+
+    loadGoogleMapsApi(apiConfig).then(function (googleMaps) {
+      $(PosternoSingleListingMap.map_elements).each(function () {
+        var singleMap = $(this);
+
+        if (singleMap.length) {
+          var singleLat = singleMap.data('lat');
+          var singleLng = singleMap.data('lng'); // Create coordinates for the starting marker.
+
+          var singleLatLng = {
+            lat: parseFloat(singleLat),
+            lng: parseFloat(singleLng)
+          };
+          var map = new googleMaps.Map(singleMap[0], {
+            center: singleLatLng,
+            zoom: parseFloat(pnoMapSettings.zoom),
+            fullscreenControl: false,
+            streetViewControl: false,
+            mapTypeControl: false
+          });
+
+          if (markerType === 'default') {
+            var marker = new google.maps.Marker({
+              position: singleLatLng,
+              map: map
+            });
+          } else {
+            var latLng = new google.maps.LatLng(parseFloat(singleLat), parseFloat(singleLng));
+
+            var _marker = createHTMLMapMarker({
+              latlng: latLng,
+              map: map,
+              html: pnoMapSettings.marker_content
+            });
+          }
+        }
+      });
+    })["catch"](function (error) {
+      console.error(error);
+    });
+  };
+
+  PosternoSingleListingMap.init();
+})(window, document, jQuery);
+
+/***/ }),
+
+/***/ 0:
+/*!*********************************************************!*\
+  !*** multi ./resources/js/single-listing-googlemaps.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/alessandrotesoro/Local Sites/posterno/app/public/wp-content/plugins/posterno-maps/resources/js/single-listing-googlemaps.js */"./resources/js/single-listing-googlemaps.js");
+
+
+/***/ })
+
+/******/ });
+//# sourceMappingURL=single-listing-googlemaps.js.map
