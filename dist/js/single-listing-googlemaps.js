@@ -249,8 +249,6 @@ module.exports = function (options) {
    */
 
   PosternoSingleListingMap.init = function () {
-    console.log(MapRequiresConsent);
-
     if (MapRequiresConsent && !MapConsentGiven) {
       return;
     }

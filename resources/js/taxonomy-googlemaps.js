@@ -4,6 +4,9 @@
 
 	const createHTMLMapMarker = require('@posterno/google-maps-html-marker');
 
+	const MapRequiresConsent = pnoMapSettings.requires_consent === '1' ? true : false;
+	const MapConsentGiven = pnoMapSettings.consent_enabled === '1' ? true : false;
+
 	window.PosternoTaxonomyMap = {};
 
 	// The library to load the gmap api.
@@ -27,6 +30,11 @@
 	 * Run the script.
 	 */
 	PosternoTaxonomyMap.init = function () {
+
+		if ( MapRequiresConsent && ! MapConsentGiven ) {
+			return;
+		}
+
 		PosternoTaxonomyMap.cacheSelectors();
 		PosternoTaxonomyMap.loadMap();
 	}

@@ -118,6 +118,8 @@ class GoogleMaps extends Provider {
 				'zoom'                => pno_get_option( 'map_zoom', 12 ),
 				'marker_type'         => $this->get_marker_type(),
 				'marker_geolocated'   => esc_js( str_replace( "\n", '', $marker_geolocated ) ),
+				'requires_consent'    => pno_get_option( 'map_gdpr', false ),
+				'consent_enabled'     => pno_map_was_given_consent(),
 			];
 
 			wp_localize_script( 'pno-taxonomy-googlemap', 'pnoMapSettings', $js_vars );
@@ -167,6 +169,11 @@ class GoogleMaps extends Provider {
 		$current_taxonomy = $this->get_current_taxonomy();
 
 		if ( ! $current_taxonomy || ! pno_is_map_enabled_for_taxonomy( $current_taxonomy ) || ! is_tax( $current_taxonomy ) ) {
+			return;
+		}
+
+		if ( pno_get_option( 'map_gdpr', false ) && ! pno_map_was_given_consent() ) {
+			posterno()->templates->get_template_part( 'maps/consent-message' );
 			return;
 		}
 

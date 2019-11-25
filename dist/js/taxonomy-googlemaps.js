@@ -1955,6 +1955,8 @@ module.exports = function (map, bounds, infoWindow) {
 
   var createHTMLMapMarker = __webpack_require__(/*! @posterno/google-maps-html-marker */ "./node_modules/@posterno/google-maps-html-marker/index.js");
 
+  var MapRequiresConsent = pnoMapSettings.requires_consent === '1' ? true : false;
+  var MapConsentGiven = pnoMapSettings.consent_enabled === '1' ? true : false;
   window.PosternoTaxonomyMap = {}; // The library to load the gmap api.
 
   var loadGoogleMapsApi = __webpack_require__(/*! load-google-maps-api */ "./node_modules/load-google-maps-api/index.js"); // Geolocation button.
@@ -1976,6 +1978,10 @@ module.exports = function (map, bounds, infoWindow) {
    */
 
   PosternoTaxonomyMap.init = function () {
+    if (MapRequiresConsent && !MapConsentGiven) {
+      return;
+    }
+
     PosternoTaxonomyMap.cacheSelectors();
     PosternoTaxonomyMap.loadMap();
   };
