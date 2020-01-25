@@ -1,28 +1,98 @@
 <?php
 /**
- * Provider definition.
+ * Maps provider helper methods.
  *
  * @package     posterno-maps
  * @copyright   Copyright (c) 2019, Sematico LTD
  * @license     http://opensource.org/licenses/gpl_2.0.php GNU Public License
  */
 
-namespace PNO\MapsProvider;
+namespace Posterno\MapsProvider;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Main Provider class that inherits common methods for all Providers.
+ * Helper methods for the maps provider functionalities.
  */
-abstract class Provider {
+class Helper {
 
 	/**
-	 * Get current listings in the query for markers display.
+	 * Get the currently enabled maps provider.
+	 *
+	 * @return string
+	 */
+	public static function get_current_provider() {
+		return pno_get_option( 'map_provider', 'googlemaps' );
+	}
+
+	/**
+	 * Check whether maps have been disabled.
+	 *
+	 * @return bool
+	 */
+	public static function are_maps_disabled() {
+		return current_theme_supports( 'posterno_disable_maps' );
+	}
+
+	/**
+	 * Get the enabled type of marker.
+	 *
+	 * @return string
+	 */
+	public static function get_marker_type() {
+		return pno_get_option( 'marker_type', 'default' );
+	}
+
+	/**
+	 * Get the current taxonomy.
+	 *
+	 * @return string|boolean
+	 */
+	public static function get_current_taxonomy() {
+
+		$current_taxonomy = get_queried_object();
+		$current_taxonomy = isset( $current_taxonomy->taxonomy ) && ! empty( $current_taxonomy->taxonomy ) ? $current_taxonomy->taxonomy : false;
+
+		return $current_taxonomy;
+
+	}
+
+	/**
+	 * Get the name of the marker template to load.
+	 *
+	 * @return string|boolean
+	 */
+	public static function get_marker_template_name() {
+
+		$marker_template_name = false;
+
+		$marker_type = self::get_marker_type();
+
+		if ( $marker_type !== 'default' ) {
+
+			$marker_template_name = 'maps/marker-category';
+
+			switch ( $marker_type ) {
+				case 'image':
+					$marker_template_name = 'maps/marker-image';
+					break;
+				case 'custom':
+					$marker_template_name = 'maps/marker-text';
+					break;
+			}
+		}
+
+		return $marker_template_name;
+
+	}
+
+	/**
+	 * Get markers list for the currently active query.
 	 *
 	 * @return array
 	 */
-	protected function get_current_listings() {
+	public static function get_current_listings_markers() {
 
 		$listings = [];
 
@@ -33,7 +103,7 @@ abstract class Provider {
 				the_post();
 
 				$marker_html = false;
-				$marker_type = $this->get_marker_type();
+				$marker_type = self::get_marker_type();
 
 				if ( $marker_type !== 'default' ) {
 
@@ -45,7 +115,7 @@ abstract class Provider {
 								'listing_id' => get_the_id(),
 							]
 						)
-						->get_template_part( $this->get_marker_template_name() );
+						->get_template_part( self::get_marker_template_name() );
 
 					$marker_html = ob_get_clean();
 
@@ -89,7 +159,7 @@ abstract class Provider {
 	 * @param WP_Query $query the query from which we're going to get the markers.
 	 * @return array
 	 */
-	protected function get_listings_from_query( $query ) {
+	public static function get_listings_markers_from_query( $query ) {
 
 		$listings = [];
 
@@ -100,7 +170,7 @@ abstract class Provider {
 				$query->the_post();
 
 				$marker_html = false;
-				$marker_type = $this->get_marker_type();
+				$marker_type = self::get_marker_type();
 
 				if ( $marker_type !== 'default' ) {
 
@@ -112,7 +182,7 @@ abstract class Provider {
 								'listing_id' => get_the_id(),
 							]
 						)
-						->get_template_part( $this->get_marker_template_name() );
+						->get_template_part( self::get_marker_template_name() );
 
 					$marker_html = ob_get_clean();
 
@@ -147,58 +217,6 @@ abstract class Provider {
 		wp_reset_postdata();
 
 		return $listings;
-
-	}
-
-	/**
-	 * Get the enabled type of marker.
-	 *
-	 * @return string
-	 */
-	protected function get_marker_type() {
-		return pno_get_option( 'marker_type', 'default' );
-	}
-
-	/**
-	 * Get the current taxonomy.
-	 *
-	 * @return string|boolean
-	 */
-	protected function get_current_taxonomy() {
-
-		$current_taxonomy = get_queried_object();
-		$current_taxonomy = isset( $current_taxonomy->taxonomy ) && ! empty( $current_taxonomy->taxonomy ) ? $current_taxonomy->taxonomy : false;
-
-		return $current_taxonomy;
-
-	}
-
-	/**
-	 * Get the name of the marker template to load.
-	 *
-	 * @return string|boolean
-	 */
-	protected function get_marker_template_name() {
-
-		$marker_template_name = false;
-
-		$marker_type = $this->get_marker_type();
-
-		if ( $marker_type !== 'default' ) {
-
-			$marker_template_name = 'maps/marker-category';
-
-			switch ( $marker_type ) {
-				case 'image':
-					$marker_template_name = 'maps/marker-image';
-					break;
-				case 'custom':
-					$marker_template_name = 'maps/marker-text';
-					break;
-			}
-		}
-
-		return $marker_template_name;
 
 	}
 
