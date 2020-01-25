@@ -92,9 +92,13 @@ class Helper {
 	 *
 	 * @return array
 	 */
-	public static function get_current_listings_markers() {
+	public static function get_current_listings_markers( $query_args = false ) {
 
 		$listings = [];
+
+		if ( $query_args ) {
+			return self::get_listings_markers_from_query( new \WP_Query( $query_args ) );
+		}
 
 		if ( have_posts() ) {
 

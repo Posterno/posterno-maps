@@ -144,7 +144,7 @@ class GoogleMaps {
 	 *
 	 * @return void
 	 */
-	public static function taxonomy_map_markup() {
+	public static function taxonomy_map_markup( $override_query = false ) {
 
 		$current_taxonomy = Helper::get_current_taxonomy();
 
@@ -159,7 +159,7 @@ class GoogleMaps {
 
 		?>
 		<script type="text/javascript">
-			var pnoTaxonomyMarkers = <?php echo wp_json_encode( Helper::get_current_listings_markers() ); ?>;
+			var pnoTaxonomyMarkers = <?php echo wp_json_encode( Helper::get_current_listings_markers( $override_query ) ); ?>;
 		</script>
 		<?php
 
